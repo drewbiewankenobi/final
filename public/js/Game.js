@@ -1,7 +1,7 @@
-var SpaceHipster = SpaceHipster || {};
+var SantaGame = SantaGame || {};
 //title screen
-SpaceHipster.Game = function(){};
-SpaceHipster.Game.prototype = {
+SantaGame.Game = function(){};
+SantaGame.Game.prototype = {
   create: function() {
     console.log(this.game.state)
     // for (key in Phaser.Keyboard){
@@ -45,6 +45,7 @@ SpaceHipster.Game.prototype = {
     this.collectSound = this.game.add.audio('collect');
 
     this.candySound = this.game.add.audio('chomp')
+
     stater = this.game.state
       gameChange = function(){
         music.stop()
@@ -74,7 +75,7 @@ SpaceHipster.Game.prototype = {
     this.collectables.physicsBodyType = Phaser.Physics.ARCADE;
 
     //phaser's random number generator
-    var numCollectables = this.game.rnd.integerInRange(50, 100)
+    var numCollectables = this.game.rnd.integerInRange(10, 20)
     var collectable;
 
     for (var i = 0; i < numCollectables; i++) {
@@ -93,7 +94,7 @@ SpaceHipster.Game.prototype = {
     this.candies.physicsBodyType = Phaser.Physics.ARCADE;
 
     //phaser's random number generator
-    var numCandies = this.game.rnd.integerInRange(5, 25)
+    var numCandies = this.game.rnd.integerInRange(5, 10)
     var candy;
 
     for (var i = 0; i < numCandies; i++) {
@@ -127,8 +128,8 @@ SpaceHipster.Game.prototype = {
       // physics properties
 
       if (rando <=.25){
-        asteriod.body.velocity.x = 80;
-        asteriod.body.velocity.y = 80;
+        asteriod.body.velocity.x = this.game.rnd.integerInRange(-80, 80);
+      asteriod.body.velocity.y = this.game.rnd.integerInRange(-80, 80);
       } else {
       asteriod.body.velocity.x = this.game.rnd.integerInRange(-20, 30);
       asteriod.body.velocity.y = this.game.rnd.integerInRange(-20, 30);}

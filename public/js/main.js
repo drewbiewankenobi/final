@@ -1,11 +1,12 @@
-var SpaceHipster = SpaceHipster || {};
+var SantaGame = SantaGame || {};
 
-SpaceHipster.game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, '');
+SantaGame.game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, '');
 
-SpaceHipster.game.state.add('Boot', SpaceHipster.Boot);
-SpaceHipster.game.state.add('Preload', SpaceHipster.Preload);
-SpaceHipster.game.state.add('MainMenu', SpaceHipster.MainMenu);
-SpaceHipster.game.state.add('Game', SpaceHipster.Game);
-SpaceHipster.game.state.add('Gametwo', SpaceHipster.Gametwo);
+SantaGame.game.state.add('Boot', SantaGame.Boot);
+SantaGame.game.state.add('Preload', SantaGame.Preload);
+SantaGame.game.state.add('MainMenu', SantaGame.MainMenu);
+SantaGame.game.state.add('Game', SantaGame.Game);
+SantaGame.game.state.add('Gametwo', SantaGame.Gametwo);
+SantaGame.game.state.add('Gamethree', SantaGame.Gamethree);
 
-SpaceHipster.game.state.start('Boot');
+SantaGame.game.state.start('Boot');

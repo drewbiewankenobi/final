@@ -1,9 +1,9 @@
-var SpaceHipster = SpaceHipster || {};
+var SantaGame = SantaGame || {};
 
 //title screen
-SpaceHipster.MainMenu = function(){};
+SantaGame.MainMenu = function(){};
 
-SpaceHipster.MainMenu.prototype = {
+SantaGame.MainMenu.prototype = {
   init: function(score) {
     var score = score || 0;
     this.highestScore = this.highestScore || 0;

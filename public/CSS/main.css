@@ -1,0 +1,126 @@
+body {
+	margin: 0;
+	background-color: rgba(236, 240, 241);
+   	background-repeat: no-repeat;
+   	background-size: 1000vh;
+    font-family: 'Press Start 2P';
+}
+
+footer {
+    background-color: rgb(192, 57, 43);
+    color: white;
+    padding: 5px;
+    margin-top: 10px;
+}
+h1 {
+	/*width: 90%;*/
+	background-color: rgb(192, 57, 43);
+	text-align: center;
+	padding-top: 25px;
+	height: 120px;
+	margin-top: 20px;
+	color: white;
+    margin: auto;
+    /*margin-bottom: 50px;*/
+}
+
+h2 {
+    background-color: rgb(192, 57, 43);
+    padding-top: 5px;
+}
+
+h3 {
+    background-color: rgb(192, 57, 43);
+    padding-top: 5px;
+}
+
+a {
+    text-decoration: none;
+    color:black;
+}
+
+.navbox {
+    border-right: 1px solid #F0F0F0;
+    border-left: 1px solid #F0F0F0;
+}
+
+
+.lineup {
+    display: inline-block;
+}
+.gamebox {
+    text-align: center;
+    height: 200px;
+    width: 200px;
+    margin: auto;
+}
+.gamebox img {
+    height: 150px;
+    width: 150px;
+}
+
+.backer {
+	background-color: #34495e;
+    color: white;
+}
+.backer button{
+    color:black;
+}
+
+.logo {
+    height: 50px;
+    width: 50px;
+}
+
+.sizer {
+	width:100%;
+    height: 400px;
+}
+
+@-webkit-keyframes move
+{
+    0% {
+        left: 0;
+    }
+    40% {
+        left: 80%;
+    }
+    50% {
+    	left: 5%;
+    }
+}
+@keyframes move
+{
+    0% {
+        left: 0;
+    }
+    40% {
+        left: 80%;
+    }
+    50% {
+    	left: 5%;
+    }
+}
+
+a#slider {
+    text-decoration: none;
+    padding-right: 20px;
+    left: 5%;
+    position: absolute;
+    -webkit-animation: move 5s;
+    animation: move 5s;
+    /*z-index: 10000;*/
+}
+
+a#slider img {
+    -webkit-transition: all 1s ease-in-out;
+    -moz-transition: all 1s ease-in-out; 
+    -o-transition: all 1s ease-in-out; 
+    -ms-transition: all 1s ease-in-out; 
+    border-radius:60px;
+    transition-duration: 1s;
+    height: 120px;
+	width: 100px;
+	vertical-align: middle;
+
+}

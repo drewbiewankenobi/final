@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html ng-app="app">
+    <head>
+    	<title>Hello</title>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
+        <link href='https://fonts.googleapis.com/css?family=Press+Start+2P' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css">
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular.js" type="text/javascript"></script>
+        <script src="/JS/angularSheet.js" type="text/javascript"></script>
+        <link rel="stylesheet" type="text/css" href="/CSS/main.css">
+    </head>
+    <body ng-controller="mainController">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                <a id="slider"><img src="/assets/images/wookiespecs.png" /></a>
+                <h1>Drewbacca Games</h1>
+            </div>
+        </div>
+    </div>
+    	
+        <h2>Existing Users</h2>
+        <form ng-submit="login()">
+            <input type="text" ng-model="loginForm.username" placeholder="Username"/>
+            <input type="password" ng-model="loginForm.password" placeholder="Password"/>
+            <input type="submit"/>
+        </form>
+
+        <h2>Register</h2>
+        <form ng-submit="signup()">
+            <input type="text" ng-model="signupForm.username" placeholder="Username"/>
+            <input type="password" ng-model="signupForm.password" placeholder="Password"/>
+            <input type="submit"/>
+        </form>
+        <script src="/js/main.js"></script>
+
+    </body>
+</html>

@@ -1,9 +1,9 @@
-var SpaceHipster = SpaceHipster || {};
+var SantaGame = SantaGame || {};
 
 //loading the game assets
-SpaceHipster.Preload = function(){};
+SantaGame.Preload = function(){};
 
-SpaceHipster.Preload.prototype = {
+SantaGame.Preload.prototype = {
   preload: function() {
   	//show loading screen
   	this.splash = this.add.sprite(this.game.world.centerX, this.game.world.centerY, 'logo');
@@ -19,10 +19,11 @@ SpaceHipster.Preload.prototype = {
     //bg tiles
     this.load.image('space', '/assets/images/tile.jpg');
     this.load.image('mospace', '/assets/images/tile2.jpg');
+    this.load.image('tile3', '/assets/images/snowbit.png');
     
     //sprites
     this.load.image('candy', '/assets/images/candy.png');
-    this.load.image('rock', 'assets/images/chimmey.png');
+    this.load.image('rock', '/assets/images/chimmey.png');
     this.load.spritesheet('playership', '/assets/images/santadance.png',16,16);
     this.load.image('power', '/assets/images/present.png');
     this.load.image('playerParticle', '/assets/images/player-particle.png');
@@ -33,6 +34,7 @@ SpaceHipster.Preload.prototype = {
     this.load.audio('explosion', '/assets/audio/explosion.ogg');
     this.load.audio('bg', ['/assets/audio/Gradius.mp3'])
     this.load.audio('bg2', ['/assets/audio/aqua.mp3'])
+    this.load.audio('bg3', ['/assets/audio/gradiusthree.mp3'])
     var music
   },
   create: function() {

@@ -1,15 +1,15 @@
 var SantaGame = SantaGame || {};
 
 //title screen
-SantaGame.Gametwo = function(){};
-SantaGame.Gametwo.prototype = {
+SantaGame.Gamethree = function(){};
+SantaGame.Gamethree.prototype = {
   create: function() {
-    music = this.add.audio('bg2')
+    music = this.add.audio('bg3')
     //set world dimensions
     this.game.world.setBounds(0, 0, 1920, 1920);
     music.play();
     //background
-    this.background = this.game.add.tileSprite(0, 0, this.game.world.width, this.game.world.height, 'mospace');
+    this.background = this.game.add.tileSprite(0, 0, this.game.world.width, this.game.world.height, 'tile3');
 
     //create player
     this.player = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'playership');
@@ -42,13 +42,6 @@ SantaGame.Gametwo.prototype = {
     this.collectSound = this.game.add.audio('collect');
 
     this.candySound = this.game.add.audio('chomp')
-
-    stater = this.game.state
-      gameChange = function(){
-        music.stop()
-        stater.start('Gamethree')
-    }
-    spaceBar.onDown.add(gameChange)
   },
   update: function() {
     if(this.game.input.activePointer.justPressed()) {
@@ -72,7 +65,7 @@ SantaGame.Gametwo.prototype = {
     this.collectables.physicsBodyType = Phaser.Physics.ARCADE;
 
     //phaser's random number generator
-    var numCollectables = this.game.rnd.integerInRange(20, 40)
+    var numCollectables = this.game.rnd.integerInRange(30, 60)
     var collectable;
 
     for (var i = 0; i < numCollectables; i++) {
@@ -91,7 +84,7 @@ SantaGame.Gametwo.prototype = {
     this.candies.physicsBodyType = Phaser.Physics.ARCADE;
 
     //phaser's random number generator
-    var numCandies = this.game.rnd.integerInRange(5, 15)
+    var numCandies = this.game.rnd.integerInRange(20, 40)
     var candy;
 
     for (var i = 0; i < numCandies; i++) {
@@ -109,7 +102,7 @@ SantaGame.Gametwo.prototype = {
     this.asteroids.enableBody = true;
 
     //phaser's random number generator
-    var numAsteroids = this.game.rnd.integerInRange(100, 150)
+    var numAsteroids = this.game.rnd.integerInRange(150, 200)
     var asteriod;
     console.log("Asteroids in play ===",numAsteroids)
 
