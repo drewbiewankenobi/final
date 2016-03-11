@@ -1,9 +1,12 @@
 var SantaGame = SantaGame || {};
-
 //title screen
 SantaGame.Gametwo = function(){};
 SantaGame.Gametwo.prototype = {
   create: function() {
+    console.log(this.game.state)
+    // for (key in Phaser.Keyboard){
+    //   console.log(key)}
+    spaceBar = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR)
     music = this.add.audio('bg2')
     //set world dimensions
     this.game.world.setBounds(0, 0, 1920, 1920);
@@ -14,8 +17,9 @@ SantaGame.Gametwo.prototype = {
     //create player
     this.player = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'playership');
     this.player.scale.setTo(2);
-    this.player.animations.add('fly', [0, 1, 2, 3, 4, 5, 6], 5, true);
+    this.player.animations.add('fly', [0, 1, 2, 3, 4, 5, 6], 6, true);
     this.player.animations.play('fly');
+    this.player.smoothed = false;
 
     //player initial score of zero
     this.playerScore = 0;
@@ -43,6 +47,7 @@ SantaGame.Gametwo.prototype = {
 
     this.candySound = this.game.add.audio('chomp')
 
+    this.presentCount = this.presentCount || 0
     stater = this.game.state
       gameChange = function(){
         music.stop()
@@ -51,11 +56,13 @@ SantaGame.Gametwo.prototype = {
     spaceBar.onDown.add(gameChange)
   },
   update: function() {
+    
     if(this.game.input.activePointer.justPressed()) {
       
       //move on the direction of the input
       this.game.physics.arcade.moveToPointer(this.player, this.playerSpeed);
     }
+    // spaceBar.onDown.add(this.gameChange)
 
     //collision between player and asteroids
     this.game.physics.arcade.collide(this.player, this.asteroids, this.hitAsteroid, null, this);
@@ -63,6 +70,8 @@ SantaGame.Gametwo.prototype = {
     //overlapping between player and collectables
     this.game.physics.arcade.overlap(this.player, this.collectables, this.collect, null, this);
     this.game.physics.arcade.overlap(this.player, this.candies, this.getCandy, null, this);
+    
+   
   },
   generateCollectables: function() {
     this.collectables = this.game.add.group();
@@ -72,14 +81,16 @@ SantaGame.Gametwo.prototype = {
     this.collectables.physicsBodyType = Phaser.Physics.ARCADE;
 
     //phaser's random number generator
-    var numCollectables = this.game.rnd.integerInRange(20, 40)
+    var numCollectables = this.game.rnd.integerInRange(5, 10)
     var collectable;
+    console.log("Num Presents === ",numCollectables)
+    this.getCount = numCollectables
 
     for (var i = 0; i < numCollectables; i++) {
       //add sprite
       collectable = this.collectables.create(this.game.world.randomX, this.game.world.randomY, 'power');
-      collectable.animations.add('fly', [0, 1, 2, 3], 5, true);
-      collectable.animations.play('fly');
+      // collectable.animations.add('fly', [0, 1, 2, 3], 5, true);
+      // collectable.animations.play('fly');
     }
 
   },
@@ -91,7 +102,7 @@ SantaGame.Gametwo.prototype = {
     this.candies.physicsBodyType = Phaser.Physics.ARCADE;
 
     //phaser's random number generator
-    var numCandies = this.game.rnd.integerInRange(5, 15)
+    var numCandies = this.game.rnd.integerInRange(5, 10)
     var candy;
 
     for (var i = 0; i < numCandies; i++) {
@@ -109,7 +120,7 @@ SantaGame.Gametwo.prototype = {
     this.asteroids.enableBody = true;
 
     //phaser's random number generator
-    var numAsteroids = this.game.rnd.integerInRange(100, 150)
+    var numAsteroids = this.game.rnd.integerInRange(50, 100)
     var asteriod;
     console.log("Asteroids in play ===",numAsteroids)
 
@@ -121,21 +132,19 @@ SantaGame.Gametwo.prototype = {
         rando+=.25
       }
       asteriod.scale.setTo(rando)
-      
+
       // physics properties
 
       if (rando <=.25){
-        asteriod.body.velocity.x = 100;
-        asteriod.body.velocity.y = 100;
+        asteriod.body.velocity.x = this.game.rnd.integerInRange(-80, 80);
+      asteriod.body.velocity.y = this.game.rnd.integerInRange(-80, 80);
       } else {
-      asteriod.body.velocity.x = this.game.rnd.integerInRange(-30, 30);
-      asteriod.body.velocity.y = this.game.rnd.integerInRange(-30, 30);}
+      asteriod.body.velocity.x = this.game.rnd.integerInRange(-20, 30);
+      asteriod.body.velocity.y = this.game.rnd.integerInRange(-20, 30);}
 
       asteriod.body.immovable = true;
       asteriod.body.collideWorldBounds = true;
       asteriod.body.bounce.setTo(0.9, 0.9);
-      // console.log("Asteroid coords ===",asteriod.position)
-      // console.log("Asteroid random num ===", rando )
     }
   },
   hitAsteroid: function(player, asteroid) {
@@ -160,13 +169,20 @@ SantaGame.Gametwo.prototype = {
   collect: function(player, collectable) {
     //play collect sound
     this.collectSound.play();
-
     //update score
     this.playerScore++;
     this.scoreLabel.text = this.playerScore;
-
+    this.presentCount+=1;
+    console.log("Collected === ", this.presentCount)
+    if (this.presentCount === this.getCount){
+    this.game.state.start('Gametwo', true, false, this.playerScore)
+    }
     //remove sprite
     collectable.destroy();
+  },
+  gameChange : function(){
+    music.stop()
+    this.game.state.start('Gamethree', true, false, this.playerScore)
   },
   getCandy: function(player, candy) {
     //play collect sound

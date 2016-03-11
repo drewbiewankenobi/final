@@ -19,12 +19,13 @@ SantaGame.Preload.prototype = {
     //bg tiles
     this.load.image('space', '/assets/images/tile.jpg');
     this.load.image('mospace', '/assets/images/tile2.jpg');
-    this.load.image('tile3', '/assets/images/snowbit.png');
+    this.load.image('tile3', '/assets/images/tile3.jpg');
     
     //sprites
     this.load.image('candy', '/assets/images/candy.png');
     this.load.image('rock', '/assets/images/chimmey.png');
     this.load.spritesheet('playership', '/assets/images/santadance.png',16,16);
+    this.load.spritesheet('gosanta', '/assets/images/gosanta.png',165,173);
     this.load.image('power', '/assets/images/present.png');
     this.load.image('playerParticle', '/assets/images/player-particle.png');
 

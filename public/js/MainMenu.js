@@ -7,8 +7,9 @@ SantaGame.MainMenu.prototype = {
   init: function(score) {
     var score = score || 0;
     this.highestScore = this.highestScore || 0;
-
+    // console.log(score)
     this.highestScore = Math.max(score, this.highestScore);
+    // console.log(this.highestScore)
    },
   create: function() {
   	//show the space tile, repeated
@@ -17,6 +18,9 @@ SantaGame.MainMenu.prototype = {
     //give it speed in x
     this.background.autoScroll(-20, 0);
 
+    this.loadMan = this.game.add.sprite(this.game.width/2 - 80, this.game.height/2 - 200,'gosanta');
+    this.loadMan.animations.add('fly', [0, 1, 2, 3, 4, 5, 6, 8, 9, 10, 11], 10, true);
+    this.loadMan.animations.play('fly');
     //start game text
     var text = "PRESENT GRABBER";
     var style = { font: "30px Georgia", fill: "Red", align: "center" };

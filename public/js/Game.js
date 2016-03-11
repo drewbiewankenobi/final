@@ -17,8 +17,9 @@ SantaGame.Game.prototype = {
     //create player
     this.player = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'playership');
     this.player.scale.setTo(2);
-    this.player.animations.add('fly', [0, 1, 2, 3, 4, 5, 6], 5, true);
+    this.player.animations.add('fly', [0, 1, 2, 3, 4, 5, 6], 6, true);
     this.player.animations.play('fly');
+    this.player.smoothed = false;
 
     //player initial score of zero
     this.playerScore = 0;
@@ -46,6 +47,7 @@ SantaGame.Game.prototype = {
 
     this.candySound = this.game.add.audio('chomp')
 
+    this.presentCount = this.presentCount || 0
     stater = this.game.state
       gameChange = function(){
         music.stop()
@@ -54,11 +56,13 @@ SantaGame.Game.prototype = {
     spaceBar.onDown.add(gameChange)
   },
   update: function() {
+    
     if(this.game.input.activePointer.justPressed()) {
       
       //move on the direction of the input
       this.game.physics.arcade.moveToPointer(this.player, this.playerSpeed);
     }
+    // spaceBar.onDown.add(this.gameChange)
 
     //collision between player and asteroids
     this.game.physics.arcade.collide(this.player, this.asteroids, this.hitAsteroid, null, this);
@@ -66,6 +70,8 @@ SantaGame.Game.prototype = {
     //overlapping between player and collectables
     this.game.physics.arcade.overlap(this.player, this.collectables, this.collect, null, this);
     this.game.physics.arcade.overlap(this.player, this.candies, this.getCandy, null, this);
+    
+   
   },
   generateCollectables: function() {
     this.collectables = this.game.add.group();
@@ -75,14 +81,16 @@ SantaGame.Game.prototype = {
     this.collectables.physicsBodyType = Phaser.Physics.ARCADE;
 
     //phaser's random number generator
-    var numCollectables = this.game.rnd.integerInRange(10, 20)
+    var numCollectables = this.game.rnd.integerInRange(5, 10)
     var collectable;
+    console.log("Num Presents === ",numCollectables)
+    this.getCount = numCollectables
 
     for (var i = 0; i < numCollectables; i++) {
       //add sprite
       collectable = this.collectables.create(this.game.world.randomX, this.game.world.randomY, 'power');
-      collectable.animations.add('fly', [0, 1, 2, 3], 5, true);
-      collectable.animations.play('fly');
+      // collectable.animations.add('fly', [0, 1, 2, 3], 5, true);
+      // collectable.animations.play('fly');
     }
 
   },
@@ -137,8 +145,6 @@ SantaGame.Game.prototype = {
       asteriod.body.immovable = true;
       asteriod.body.collideWorldBounds = true;
       asteriod.body.bounce.setTo(0.9, 0.9);
-      // console.log("Asteroid coords ===",asteriod.position)
-      // console.log("Asteroid random num ===", rando )
     }
   },
   hitAsteroid: function(player, asteroid) {
@@ -159,17 +165,26 @@ SantaGame.Game.prototype = {
   gameOver: function() {    
     //pass it the score as a parameter 
     this.game.state.start('MainMenu', true, false, this.playerScore);
+    this.presentCount = 0
   },
   collect: function(player, collectable) {
     //play collect sound
     this.collectSound.play();
-
     //update score
     this.playerScore++;
     this.scoreLabel.text = this.playerScore;
-
+    this.presentCount+=1;
+    console.log("Collected === ", this.presentCount)
+    if (this.presentCount === this.getCount){
+      music.stop()
+    this.game.state.start('Gametwo', true, false, this.playerScore)
+    }
     //remove sprite
     collectable.destroy();
+  },
+  gameChange : function(){
+    music.stop()
+    this.game.state.start('Gametwo', true, false, this.playerScore)
   },
   getCandy: function(player, candy) {
     //play collect sound
