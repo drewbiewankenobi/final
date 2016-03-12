@@ -2,6 +2,12 @@ var SantaGame = SantaGame || {};
 //title screen
 SantaGame.Gamethree = function(){};
 SantaGame.Gamethree.prototype = {
+  init: function(score) {
+    var myScore = score
+    console.log("Score === ",score)
+    this.playerScore = this.playerScore || 0
+    this.playerScore = myScore
+  },
   create: function() {
     console.log(this.game.state)
     // for (key in Phaser.Keyboard){
@@ -39,6 +45,7 @@ SantaGame.Gamethree.prototype = {
 
     //show score
     this.showLabels();
+    this.scoreLabel.text = this.playerScore
 
     //sounds
     this.explosionSound = this.game.add.audio('explosion');
@@ -48,12 +55,12 @@ SantaGame.Gamethree.prototype = {
     this.candySound = this.game.add.audio('chomp')
 
     this.presentCount = this.presentCount || 0
-    // stater = this.game.state
-    //   gameChange = function(){
-    //     music.stop()
-    //     stater.start('Gamefour')
-    // }
-    // spaceBar.onDown.add(gameChange)
+    stater = this.game.state
+      gameChange = function(){
+        music.stop()
+        stater.start('Gamefour')
+    }
+    spaceBar.onDown.add(gameChange)
   },
   update: function() {
     
@@ -165,6 +172,7 @@ SantaGame.Gamethree.prototype = {
   gameOver: function() {    
     //pass it the score as a parameter 
     this.game.state.start('MainMenu', true, false, this.playerScore);
+    this.presentCount = 0
   },
   collect: function(player, collectable) {
     //play collect sound

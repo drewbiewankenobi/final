@@ -39,6 +39,7 @@ SantaGame.Game.prototype = {
 
     //show score
     this.showLabels();
+    this.scoreLabel.text = this.playerScore
 
     //sounds
     this.explosionSound = this.game.add.audio('explosion');
