@@ -9,10 +9,12 @@ SantaGame.Gamefour.prototype = {
     this.playerScore = myScore
   },
   create: function() {
+      
     // for (key in Phaser.Keyboard){
     //   console.log(key)}
+    spaceBar = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR)
     this.x = this.game.time.now
-    this.initKeyboard();
+    // this.initKeyboard();
     music = this.add.audio('bg4')
     //set world dimensions
     this.game.world.setBounds(0, 0, 1920, 1920);
@@ -26,8 +28,39 @@ SantaGame.Gamefour.prototype = {
     this.player.animations.play('fly');
     this.player.smoothed = false;
 
-    //player initial score of zero
-    
+  var gamez = this.game
+  var playa = this.player
+
+  var fire = function() {
+  	// console.log("game time === ",this.game.time.now)
+    // if (this.game.time.now/1000 > this.nextFire && bullets.countDead() > 0) {
+      // console.log(this.game.time)
+      bullets = gamez.add.group();
+      bullets.enableBody = true;
+      bullets.physicsBodyType = Phaser.Physics.ARCADE;
+
+      bullets.createMultiple(1, 'bullet');
+      bullets.setAll('checkWorldBounds', true);
+      bullets.setAll('outOfBoundsKill', true);
+	   
+    	
+    	// var fireRate = 100;
+		
+     //    nextFire = this.game.time.now + fireRate;
+
+        var bullet = bullets.getFirstDead()
+
+        bullet.reset(playa.x - 8, playa.y - 8);
+
+        gamez.physics.arcade.moveToPointer(bullet, 300);
+        // console.log(bullets)
+        this.bullets = bullets
+        // console.log(this.bullets)
+     
+    // }
+
+      }
+    spaceBar.onDown.add(fire)
 
     //enable player physics
     this.game.physics.arcade.enable(this.player);
@@ -71,7 +104,7 @@ SantaGame.Gamefour.prototype = {
       this.game.physics.arcade.moveToPointer(this.player, this.playerSpeed);
     }
 
-    this.checkPlayerInput();
+    // this.checkPlayerInput();
     // spaceBar.onDown.add(this.gameChange)
 
     //collision between player and asteroids
@@ -84,60 +117,31 @@ SantaGame.Gamefour.prototype = {
     
    
   },
-  initKeyboard: function () {
-        this.key_fire = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-    },
-  checkPlayerInput: function () {
+  // initKeyboard: function () {
+  //       this.key_fire = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+  //   },
+  // checkPlayerInput: function () {
         
-        if (this.key_fire.isDown) {
-            this.fire();
-        }
-    },
-  fire : function() {
-  	// console.log("game time === ",this.game.time.now)
-    // if (this.game.time.now/1000 > this.nextFire && bullets.countDead() > 0) {
-      console.log(this.game.time)
-      
-	   
-    	bullets = this.game.add.group();
-    	bullets.enableBody = true;
-    	bullets.physicsBodyType = Phaser.Physics.ARCADE;
-
-    	bullets.createMultiple(50, 'bullet');
-    	bullets.setAll('checkWorldBounds', true);
-    	bullets.setAll('outOfBoundsKill', true);
-    	var fireRate = 100;
-		
-        nextFire = this.game.time.now + fireRate;
-
-        var bullet = bullets.getFirstDead();
-
-        bullet.reset(this.player.x - 8, this.player.y - 8);
-
-        this.game.physics.arcade.moveToPointer(bullet, 300);
-        console.log(bullets)
-        this.bullets = bullets
-        console.log(this.bullets)
-     
-    // }
-
-},
-breakAsteroid: function(player, collectable) {
+  //       if (this.key_fire.isDown) {
+  //           this.fire();
+  //       }
+  //   },
+breakAsteroid: function(bullet, asteroid) {
     //play collect sound
+    console.log(bullet)
+    console.log(asteroid)
     this.explosionSound.play();
     //update score
     this.playerScore++;
     this.scoreLabel.text = this.playerScore;
+    // bullet.kill();
+    // asteroid.kill();
     // if (this.presentCount === this.getCount){
     //   music.stop()
     // this.game.state.start('Gametwo', true, false, this.playerScore)
     // }
 
-    // console.log("fired!")
-
-    //remove sprite
-    console.log(this.bullets)
-    // this.bullets.destroy()
+ 
   },
   generateReindeer: function() {
     this.reindeer = this.game.add.group();

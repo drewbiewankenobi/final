@@ -31,21 +31,26 @@ SantaGame.MainMenu.prototype = {
     var t = this.game.add.text(this.game.width/2, this.game.height/2, text, style);
     t.anchor.set(0.5);
 
-    var text = "Help Santa get his presents back.  Click on the screen to steer!";
+    var text = "Help Santa get his presents back.";
     var style = { font: "20px 'Press Start 2P'", fill: "Red", align: "center" };
-    var g = this.game.add.text(this.game.width/2, this.game.height/2 + 35, text, style);
-    g.anchor.set(0.5);
+    var a = this.game.add.text(this.game.width/2, this.game.height/2 + 35, text, style);
+    a.anchor.set(0.5);
+
+    var text = "Steer Santa by clicking his move.";
+    var style = { font: "20px 'Press Start 2P'", fill: "Red", align: "center" };
+    var b = this.game.add.text(this.game.width/2, this.game.height/2 + 65, text, style);
+    b.anchor.set(0.5);
 
     var text = "CLICK ANYWHERE TO START";
     var style = { font: "20px 'Press Start 2P'", fill: "Red", align: "center" };
-    var g = this.game.add.text(this.game.width/2, this.game.height/2 + 65, text, style);
-    g.anchor.set(0.5);
+    var c = this.game.add.text(this.game.width/2, this.game.height/2 + 100, text, style);
+    c.anchor.set(0.5);
 
     //highest score
-    text = "Highest score: "+this.highestScore;
+    text = "Highest Score: "+ this.highestScore;
     style = { font: "15px 'Press Start 2P'", fill: "Green", align: "center" };
   
-    var h = this.game.add.text(this.game.width/2, this.game.height/2 + 85, text, style);
+    var h = this.game.add.text(this.game.width/2, this.game.height/2 + 135, text, style);
     h.anchor.set(0.5);
   },
   update: function() {

@@ -87,7 +87,7 @@ SantaGame.Gamethree.prototype = {
     this.collectables.physicsBodyType = Phaser.Physics.ARCADE;
 
     //phaser's random number generator
-    var numCollectables = this.game.rnd.integerInRange(5, 10)
+    var numCollectables = this.game.rnd.integerInRange(10, 15)
     var collectable;
     console.log("Num Presents === ",numCollectables)
     this.getCount = numCollectables
@@ -126,7 +126,7 @@ SantaGame.Gamethree.prototype = {
     this.asteroids.enableBody = true;
 
     //phaser's random number generator
-    var numAsteroids = this.game.rnd.integerInRange(50, 100)
+    var numAsteroids = this.game.rnd.integerInRange(100, 150)
     var asteriod;
     console.log("Asteroids in play ===",numAsteroids)
 
