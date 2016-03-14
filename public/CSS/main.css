@@ -6,6 +6,7 @@ body {
     font-family: 'Press Start 2P';
 }
 
+
 footer {
     background-color: rgb(192, 57, 43);
     color: white;
@@ -34,9 +35,38 @@ h3 {
     padding-top: 5px;
 }
 
+
 a {
     text-decoration: none;
     color:black;
+}
+
+/*a:hover {
+    opacity: 1.2
+}*/
+
+.game-head {
+    color: white;
+    padding-left: 5px;
+}
+
+.foot-right{
+    text-align: right;
+}
+
+.head-pic{
+    height: 100px;
+    width: 80px;
+    display: inline;
+}
+
+.nav-pic{
+    height: 20px;
+    width: 35px;
+}
+
+.icon-space {
+    padding: 0px, 5px, 0px, 5px;
 }
 
 .navbox {
@@ -44,6 +74,18 @@ a {
     border-left: 1px solid #F0F0F0;
 }
 
+.mod-pic {
+    height: 50px;
+    width: 50px;
+}
+
+.mod-head {
+    background-color: rgb(192, 57, 43);
+}
+
+.mod-bod {
+    border-radius: 20px;
+}
 
 .lineup {
     display: inline-block;

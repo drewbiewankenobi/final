@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head ng-app="app">
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
+	<link href='https://fonts.googleapis.com/css?family=Press+Start+2P' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css">
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="/CSS/main.css">
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/phaser/2.4.6/phaser.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular.min.js"></script>
+	<script src="/JS/angularSheet.js" type="text/javascript"></script>
+	<link rel="icon" href="/assets/images/wookiespecs.png">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/4.12.0/bootstrap-social.min.css">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+	
+</head>
+<body ng-controller = "mainController">
+<div>
+	<div>
+		<nav class="navbar navbar-default">
+		  <div class="container-fluid">
+		    <!-- Brand and toggle -->
+		    <div class="navbar-header navhover">
+		      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+		        <span class="sr-only">Toggle navigation</span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		      </button>
+		      <!-- <a class="navbar-brand" href="#">HOME</a> -->
+		    </div>
+
+		    <!-- nav links, forms, and other content -->
+		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		      <ul class="nav navbar-nav">
+		        <li class ="navhover navbox"><a href="/games">Games <span class="sr-only">(current)</span></a></li>
+		      	<li class ="navhover navbox"><a href="/leaders">High Scores</a></li>
+		      </ul>
+		      <ul class="nav navbar-nav navbar-right">
+	        		<li class="navhover navbox"><a href="/profile">Profile</a></li>
+	        		<li class="navhover navbox"><a href="/logout">Log Out</a></li>
+	        	</ul>
+		    </div><!-- /.navbar-collapse -->
+		  </div><!-- /.container-fluid -->
+		</nav>
+	</div>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-xs-12">
+		<a id="slider"><img src="/assets/images/wookiespecs.png" /></a>
+		<h1>Drewbacca Games</h1>
+		</div>
+	</div>
+</div>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xs-12">
+				<img class = "sizer" src="/assets/images/Fez.png">
+			</div>
+		</div>
+	</div>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="backer">
+					<p>Drewbacca Games are free to play, but you must be a member.</p>
+					<a href="/register"><button>Join the Fun</button></a>
+					<a href="/register"><button>Log In</button></a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="backer">
+				<h2>Awesome FREE Games</h2>
+					<div>
+						<div class="lineup dropdown">
+							 <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Arcade
+							 <span class="caret"></span></button>
+							 <ul class="dropdown-menu">
+							    <li><a href="#">Present Grabber</a></li>
+							    <li><a href="#">Asteroids 2000</a></li>
+							    <li><a href="#">Steel Bullet</a></li>
+							  </ul>
+						</div>
+						<div class="lineup dropdown">
+							 <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Multiplayer
+							 <span class="caret"></span></button>
+							 <ul class="dropdown-menu">
+							    <li><a href="#">Tanks! For the Memories!</a></li>
+							    <li><a href="#">Squad of Subjugators</a></li>
+							    <li><a href="#">Billiard Monsters</a></li>
+							  </ul>
+						</div>
+						<div class="lineup dropdown">
+							<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">RPG
+							<span class="caret"></span></button>
+							<ul class="dropdown-menu">
+							    <li><a href="#">The Ancient Leaflets</a></li>
+							    <li><a href="#">Last Dream III</a></li>
+							    <li><a href="#">Obfuscation of MP</a></li>
+							</ul>
+						</div>
+						<div class="lineup dropdown">
+							<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Puzzle
+							<span class="caret"></span></button>
+							<ul class="dropdown-menu">
+							    <li><a href="#">Dr. Wario</a></li>
+							    <li><a href="#">Bedazzled</a></li>
+							    <li><a href="#">Legally Distinct Tetris Clone</a></li>
+							</ul>
+						</div>
+						<div class="lineup dropdown">
+							<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Sports
+							<span class="caret"></span></button>
+							<ul class="dropdown-menu">
+							    <li><a href="#">Rob Baron's NFL</a></li>
+							    <li><a href="#">NBA Blams</a></li>
+							    <li><a href="#">Queen Latifah Soccer</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+		<div class = "container-fluid">
+			<div class = "row">
+				<div class = "col-xs-12">
+					<div class = "backer">
+						<h3>Featured Games</h3>
+						<div class="row">
+							<div class= "col-xs-3">
+								<div class="gamebox">
+								<h4>Present Grabber</h4><a href="/HTML/index.html"><img src="/assets/images/grabber-shot.png"></a>
+								</div>
+							</div>
+							<div class= "col-xs-3">
+								<div class="gamebox">
+								<h4>The Ancient Leaflets</h4><a href="#"><img src="/assets/images/daggerfall.jpg"></a>
+								</div>
+							</div>
+							<div class= "col-xs-3">
+								<div class="gamebox">
+								<h4>Steel Bullet</h4><a href="#"><img src="/assets/images/slug.jpg"></a>
+								</div>
+							</div>
+							<div class= "col-xs-3">
+								<div class="gamebox">
+								<h4>A Kid With Grabulator</h4><a href="#"><img src="/assets/images/blob.png"></a>
+								</div>
+							</div>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<footer class="foot-right">
+	<a href="mailto:someone@example.com">
+  Email Drewbacca</a>
+  <a class="btn btn-social-icon btn-twitter icon-space">
+    <span class="fa fa-twitter"></span>
+  </a>
+  <a class="btn btn-social-icon btn-facebook icon-space">
+    <span class="fa fa-facebook"></span>
+  </a>
+</footer>
+</body>
+	<audio autoplay>
+		<source src="/assets/audio/Chewbacca.mp3" type="audio/mpeg">
+	</audio>
+</html>

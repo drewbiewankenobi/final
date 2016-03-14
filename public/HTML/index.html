@@ -1,11 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="gameApp">
 
 	<head>
 		<meta charset="utf-8" />
 		<title>Present Grabber</title>
+		<link href='https://fonts.googleapis.com/css?family=Press+Start+2P' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" type="text/css" href="/CSS/main.css">
+		<link rel="icon" href="/assets/images/wookiespecs.png">
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/phaser/2.4.6/phaser.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular.min.js"></script>
 		<script type="text/javascript" src="/js/Boot.js"></script>
 		<script type="text/javascript" src="/js/Preload.js"></script>
 		<script type="text/javascript" src="/js/MainMenu.js"></script>
@@ -22,9 +25,9 @@
 		  </style>
 	</head>
 
-	<body>
+	<body ng-controller ="scoreTroller">
 		<nav style="position: absolute">
-			<a href="/"><img class="logo" src="/assets/images/wookiespecs.png"></a>
+			<a href="/registered"><img class="logo" src="/assets/images/wookiespecs.png"></a>
 		</nav>
 		<!-- include the main game file -->
 		<script src="/js/main.js"></script>

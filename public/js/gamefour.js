@@ -8,10 +8,10 @@ SantaGame.Gamefour.prototype = {
     this.playerScore = this.playerScore || 0
     this.playerScore = myScore
   },
-
   create: function() {
     // for (key in Phaser.Keyboard){
     //   console.log(key)}
+    this.x = this.game.time.now
     this.initKeyboard();
     music = this.add.audio('bg4')
     //set world dimensions
@@ -27,7 +27,7 @@ SantaGame.Gamefour.prototype = {
     this.player.smoothed = false;
 
     //player initial score of zero
-    this.playerScore = 0;
+    
 
     //enable player physics
     this.game.physics.arcade.enable(this.player);
@@ -45,6 +45,7 @@ SantaGame.Gamefour.prototype = {
 
     //show score
     this.showLabels();
+
 
     //sounds
     this.explosionSound = this.game.add.audio('explosion');
@@ -75,9 +76,10 @@ SantaGame.Gamefour.prototype = {
 
     //collision between player and asteroids
     this.game.physics.arcade.collide(this.player, this.asteroids, this.hitAsteroid, null, this);
+    this.game.physics.arcade.collide(this.player, this.reindeer, this.hitAsteroid, null, this);
 
     //overlapping between player and collectables
-    this.game.physics.arcade.overlap(this.player, this.collectables, this.collect, null, this);
+    this.game.physics.arcade.collide(this.bullets, this.asteroids, this.breakAsteroid, null, this);
     this.game.physics.arcade.overlap(this.player, this.candies, this.getCandy, null, this);
     
    
@@ -92,11 +94,11 @@ SantaGame.Gamefour.prototype = {
         }
     },
   fire : function() {
-  	console.log("game time === ",this.game.time.now)
+  	// console.log("game time === ",this.game.time.now)
     // if (this.game.time.now/1000 > this.nextFire && bullets.countDead() > 0) {
-
-
-	
+      console.log(this.game.time)
+      
+	   
     	bullets = this.game.add.group();
     	bullets.enableBody = true;
     	bullets.physicsBodyType = Phaser.Physics.ARCADE;
@@ -113,35 +115,56 @@ SantaGame.Gamefour.prototype = {
         bullet.reset(this.player.x - 8, this.player.y - 8);
 
         this.game.physics.arcade.moveToPointer(bullet, 300);
+        console.log(bullets)
+        this.bullets = bullets
+        console.log(this.bullets)
+     
     // }
 
 },
+breakAsteroid: function(player, collectable) {
+    //play collect sound
+    this.explosionSound.play();
+    //update score
+    this.playerScore++;
+    this.scoreLabel.text = this.playerScore;
+    // if (this.presentCount === this.getCount){
+    //   music.stop()
+    // this.game.state.start('Gametwo', true, false, this.playerScore)
+    // }
+
+    // console.log("fired!")
+
+    //remove sprite
+    console.log(this.bullets)
+    // this.bullets.destroy()
+  },
   generateReindeer: function() {
-    this.asteroids = this.game.add.group();
+    this.reindeer = this.game.add.group();
     
     //enable physics in them
-    this.asteroids.enableBody = true;
+    this.reindeer.enableBody = true;
 
     //phaser's random number generator
-    var numAsteroids = 2
-    var asteriod;
-    console.log("Asteroids in play ===",numAsteroids)
+    var numreindeer = 2
+    var deer;
+    console.log("reindeer in play ===",numreindeer)
 
-    for (var i = 0; i < numAsteroids; i++) {
+    for (var i = 0; i < numreindeer; i++) {
       //add sprite
-      asteriod = this.asteroids.create(this.game.world.randomX, this.game.world.randomY, 'reindeer');
+      deer = this.reindeer.create(this.game.world.randomX, this.game.world.randomY, 'reindeer');
       
 
       // physics properties
-      // asteriod.scale.setTo(2);
-      asteriod.animations.add('fly', [0, 1, 2, 3, 4, 5, 6], 10, true);
-      asteriod.animations.play('fly');
-      asteriod.body.velocity.x = this.game.rnd.integerInRange(-100, 100);
-      asteriod.body.velocity.y = this.game.rnd.integerInRange(-100, 100);}
+      // deer.scale.setTo(2);
+      deer.animations.add('fly', [0, 1, 2, 3, 4, 5, 6], 15, true);
+      deer.animations.play('fly');
+      deer.body.velocity.x = this.game.rnd.integerInRange(-100, 100);
+      deer.body.velocity.y = this.game.rnd.integerInRange(-100, 100);}
 
-      asteriod.body.immovable = true;
-      asteriod.body.collideWorldBounds = true;
-      asteriod.body.bounce.setTo(0.9, 0.9);
+      deer.body.immovable = true;
+      deer.body.collideWorldBounds = true;
+      deer.body.bounce.setTo(0.9, 0.9);
   },
   generateAsteriods: function() {
     this.asteroids = this.game.add.group();
@@ -177,8 +200,10 @@ SantaGame.Gamefour.prototype = {
       asteriod.body.bounce.setTo(0.9, 0.9);
     }
   },
-  hitAsteroid: function(player, asteroid) {
+   hitAsteroid: function(player, asteroid) {
     //play explosion sound
+    console.log(this.x)
+    if(this.game.time.now > this.x + 5000){
     this.explosionSound.play();
     // console.log("Player coords ===",this.player.x, this.player.y)
     //make the player explode
@@ -191,21 +216,7 @@ SantaGame.Gamefour.prototype = {
     this.player.kill();
     this.game.time.events.add(800, this.gameOver, this);
     music.stop()
-  },
-  hitAsteroid: function(player, asteroid) {
-    //play explosion sound
-    this.explosionSound.play();
-    // console.log("Player coords ===",this.player.x, this.player.y)
-    //make the player explode
-    var emitter = this.game.add.emitter(this.player.x, this.player.y, 100);
-    emitter.makeParticles('playerParticle');
-    emitter.minParticleSpeed.setTo(-200, -200);
-    emitter.maxParticleSpeed.setTo(200, 200);
-    emitter.gravity = 0;
-    emitter.start(true, 1000, null, 100);
-    this.player.kill();
-    this.game.time.events.add(800, this.gameOver, this);
-    music.stop()
+  }
   },
   gameOver: function() {    
     //pass it the score as a parameter 

@@ -1,7 +1,6 @@
-<!DOCTYPE html>
 <html ng-app="app">
-     <head>
-        <title>Hello</title>
+    <head>
+    	<title>Hello</title>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Press+Start+2P' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css">
@@ -40,26 +39,33 @@
               <ul class="nav navbar-nav navbar-right">
                     <li class="navhover navbox"><a href="/profile">Profile</a></li>
                     <li class="navhover navbox"><a href="/logout">Log Out</a></li>
-              </ul>
+                </ul>
             </div><!-- /.navbar-collapse -->
           </div><!-- /.container-fluid -->
         </nav>
     </div>
-<div class="container-fluid">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+            <h1>High Scores</h1>
+            </div>
+        </div>
+    </div>
+    <div class="container">
       <div class="row">
-        <div class="col-xs-12">
-        <h1>Drewbacca Games</h1>
-      </div>
-  </div>
-</div>
-<div class="container">
-  <div class="row">
-    <div ng-repeat = "games in gameBox" class="col-xs-12">
-      <h3 class="game-head">{{games.name}}</h3>
-        <p class="backer">Created by: {{games.creator}}</p>
-        <img class = "sizer" ng-src="{{games.img}}">
-        <p class="backer">{{games.description}}</p>
-  </div>
-</div>
-
+            <h2>Present Grabber</h2>
+        <div ng-repeat = "scores in scoreBox" class="col-xs-12">
+            <h3 class="game-head">{{scores.name}} --- {{scores.score}}</h3>
+        </div>
+    </div>
+<footer class="foot-right">
+    <a href="mailto:someone@example.com">
+  Email Drewbacca</a>
+  <a class="btn btn-social-icon btn-twitter icon-space">
+    <span class="fa fa-twitter"></span>
+  </a>
+  <a class="btn btn-social-icon btn-facebook icon-space">
+    <span class="fa fa-facebook"></span>
+  </a>
+</footer>
 </body>

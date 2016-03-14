@@ -9,9 +9,8 @@ SantaGame.Gamethree.prototype = {
     this.playerScore = myScore
   },
   create: function() {
-    console.log(this.game.state)
-    // for (key in Phaser.Keyboard){
-    //   console.log(key)}
+    this.x = this.game.time.now
+
     spaceBar = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR)
     music = this.add.audio('bg3')
     //set world dimensions
@@ -28,7 +27,7 @@ SantaGame.Gamethree.prototype = {
     this.player.smoothed = false;
 
     //player initial score of zero
-    this.playerScore = 0;
+    
 
     //enable player physics
     this.game.physics.arcade.enable(this.player);
@@ -156,6 +155,8 @@ SantaGame.Gamethree.prototype = {
   },
   hitAsteroid: function(player, asteroid) {
     //play explosion sound
+    console.log(this.x)
+    if(this.game.time.now > this.x + 5000){
     this.explosionSound.play();
     // console.log("Player coords ===",this.player.x, this.player.y)
     //make the player explode
@@ -168,6 +169,7 @@ SantaGame.Gamethree.prototype = {
     this.player.kill();
     this.game.time.events.add(800, this.gameOver, this);
     music.stop()
+  }
   },
   gameOver: function() {    
     //pass it the score as a parameter 
@@ -177,13 +179,15 @@ SantaGame.Gamethree.prototype = {
   collect: function(player, collectable) {
     //play collect sound
     this.collectSound.play();
+
     //update score
     this.playerScore++;
     this.scoreLabel.text = this.playerScore;
     this.presentCount+=1;
     console.log("Collected === ", this.presentCount)
     if (this.presentCount === this.getCount){
-    this.game.state.start('Gametwo', true, false, this.playerScore)
+      music.stop()
+    this.game.state.start('Gamefour', true, false, this.playerScore)
     }
     //remove sprite
     collectable.destroy();
@@ -195,6 +199,9 @@ SantaGame.Gamethree.prototype = {
   getCandy: function(player, candy) {
     //play collect sound
     this.candySound.play();
+    this.candySound.play();
+    this.playerScore += 3
+    this.scoreLabel.text = this.playerScore;
 
     //update scale
     this.player.scale.y +=.3

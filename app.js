@@ -26,8 +26,11 @@ app.use(app.sessionMiddleware)
 var userSchema = mongoose.Schema({
     username: { type: String, required: true, unique: true },
     password: { type: String, required: true },
+    level: {type: Number, default: 0}
 });
+
 var User = mongoose.model('user', userSchema);
+
 
 // Application Configuration \\
 app.use(logger('dev'));
@@ -61,7 +64,6 @@ passport.use(new LocalStrategy(
             if (!user) {
                 return done(null, false);
             }
-            // If we got this far, then we know that the user exists. But did they put in the right password?
             bcrypt.compare(password, user.password, function(error, response){
                 if (response === true){
                     return done(null,user)
@@ -77,12 +79,11 @@ passport.use(new LocalStrategy(
 app.isAuthenticated = function(req, res, next){
     // If the current user is logged in...
     if(req.isAuthenticated()){
-    // Middleware allows the execution chain to continue.
         return next();
     }
     // If not, redirect to login
     console.log('create an account')
-    res.redirect('/');
+    res.redirect('/oops');
 }
 
 
@@ -128,6 +129,10 @@ app.get('/', function(req, res){
   res.sendFile('splash.html', {root: './public/HTML/'})
 });
 
+app.get('/oops', function(req, res){
+  res.sendFile('oops.html', {root: './public/HTML/'})
+});
+
 app.get('/register', function(req, res){
   res.sendFile('login.html', {root: './public/HTML/'})
 });
@@ -135,6 +140,35 @@ app.get('/register', function(req, res){
 app.get('/games', app.isAuthenticated, function(req, res){
     res.sendFile('/games.html', {root: './hidden'})
 })
+
+app.get('/registered', app.isAuthenticated, function(req, res){
+    res.sendFile('/splash.html', {root: './hidden'})
+})
+
+app.get('/leaders', app.isAuthenticated, function(req, res){
+    res.sendFile('/leaderboard.html', {root: './hidden'})
+})
+
+app.get('/profile', app.isAuthenticated, function(req, res){
+    res.sendFile('/profile.html', {root: './hidden'})
+})
+
+app.get('/api/people', function(req, res){
+    User.find({}, function(err, users){
+        if (err) {
+            return handleError(err)
+        }
+        else {
+            res.send(users)
+        }
+    })
+})
+
+app.get('/logout', function(req, res){
+    req.logOut()
+    res.redirect('/')
+})
+
 
 // Creating Server and Listening for Connections \\
 var port = 3000

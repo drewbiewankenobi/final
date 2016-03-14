@@ -27,10 +27,11 @@ SantaGame.Preload.prototype = {
     this.load.image('rock', '/assets/images/chimmey.png');
     this.load.spritesheet('playership', '/assets/images/santadance.png',16,16);
     this.load.spritesheet('gosanta', '/assets/images/gosanta.png',165,173);
-    this.load.spritesheet('reindeer', '/assets/images/reindeer.png',279.4285714286,456);
+    this.load.spritesheet('reindeer', '/assets/images/evil.png',127.5714285714,208);
     this.load.image('power', '/assets/images/present.png');
     this.load.image('playerParticle', '/assets/images/player-particle.png');
     this.load.image('bullet', '/assets/images/ball.gif');
+    this.load.image('tie', '/assets/images/tie.png');
 
     //audio
     this.load.audio('collect', '/assets/audio/collect.ogg');
