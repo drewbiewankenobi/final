@@ -3,7 +3,7 @@ var SantaGame = SantaGame || {};
 SantaGame.Gamefour = function(){};
 SantaGame.Gamefour.prototype = {
   init: function(score) {
-    var myScore = score
+    var myScore = score || 0
     console.log("Score === ",score)
     this.playerScore = this.playerScore || 0
     this.playerScore = myScore
@@ -27,25 +27,23 @@ SantaGame.Gamefour.prototype = {
     this.player.animations.add('fly', [0, 1, 2, 3, 4, 5, 6], 6, true);
     this.player.animations.play('fly');
     this.player.smoothed = false;
-
   var gamez = this.game
   var playa = this.player
-
-  var fire = function() {
-  	// console.log("game time === ",this.game.time.now)
-    // if (this.game.time.now/1000 > this.nextFire && bullets.countDead() > 0) {
-      // console.log(this.game.time)
+  // var bullets
       bullets = gamez.add.group();
-      bullets.enableBody = true;
       bullets.physicsBodyType = Phaser.Physics.ARCADE;
+      bullets.enableBody = true;
 
-      bullets.createMultiple(1, 'bullet');
+      bullets.createMultiple(50, 'bullet');
       bullets.setAll('checkWorldBounds', true);
       bullets.setAll('outOfBoundsKill', true);
-	   
-    	
-    	// var fireRate = 100;
-		
+  var fire = function() {
+      this.pewSound = gamez.add.audio('pew')
+
+     
+      
+      // var fireRate = 100;
+    
      //    nextFire = this.game.time.now + fireRate;
 
         var bullet = bullets.getFirstDead()
@@ -54,12 +52,13 @@ SantaGame.Gamefour.prototype = {
 
         gamez.physics.arcade.moveToPointer(bullet, 300);
         // console.log(bullets)
-        this.bullets = bullets
+        // this.bullets = bullet
         // console.log(this.bullets)
-     
-    // }
-
+    myBullets = bullet
+    this.pewSound.play();
+    console.log("in=== ",myBullets)
       }
+     console.log("out ===",bullets)
     spaceBar.onDown.add(fire)
 
     //enable player physics
@@ -85,7 +84,9 @@ SantaGame.Gamefour.prototype = {
    
     this.collectSound = this.game.add.audio('collect');
 
-    this.candySound = this.game.add.audio('chomp')
+    this.candySound = this.game.add.audio('chomp');
+
+    
 
     this.presentCount = this.presentCount || 0
     // stater = this.game.state
@@ -97,22 +98,20 @@ SantaGame.Gamefour.prototype = {
     
   },
   update: function() {
-    
+    // console.log(bullets)
     if(this.game.input.activePointer.justPressed()) {
       
       //move on the direction of the input
       this.game.physics.arcade.moveToPointer(this.player, this.playerSpeed);
     }
 
-    // this.checkPlayerInput();
-    // spaceBar.onDown.add(this.gameChange)
-
     //collision between player and asteroids
     this.game.physics.arcade.collide(this.player, this.asteroids, this.hitAsteroid, null, this);
     this.game.physics.arcade.collide(this.player, this.reindeer, this.hitAsteroid, null, this);
 
     //overlapping between player and collectables
-    this.game.physics.arcade.collide(this.bullets, this.asteroids, this.breakAsteroid, null, this);
+    this.game.physics.arcade.collide(bullets, this.asteroids, this.breakAsteroid, null, this);
+    this.game.physics.arcade.collide(bullets, this.reindeer, this.breakDeer, null, this);
     this.game.physics.arcade.overlap(this.player, this.candies, this.getCandy, null, this);
     
    
@@ -128,14 +127,13 @@ SantaGame.Gamefour.prototype = {
   //   },
 breakAsteroid: function(bullet, asteroid) {
     //play collect sound
-    console.log(bullet)
-    console.log(asteroid)
+    // console.log("hit")
     this.explosionSound.play();
     //update score
     this.playerScore++;
     this.scoreLabel.text = this.playerScore;
-    // bullet.kill();
-    // asteroid.kill();
+    bullet.kill();
+    asteroid.kill();
     // if (this.presentCount === this.getCount){
     //   music.stop()
     // this.game.state.start('Gametwo', true, false, this.playerScore)
@@ -143,13 +141,22 @@ breakAsteroid: function(bullet, asteroid) {
 
  
   },
+breakDeer: function(bullet, reindeer){
+  // console.log("hit")
+    this.explosionSound.play();
+    //update score
+    
+  
+    reindeer.scale.y -=.2
+    reindeer.scale.x -=.2
+    bullet.kill();
+  
+},
   generateReindeer: function() {
     this.reindeer = this.game.add.group();
     
     //enable physics in them
     this.reindeer.enableBody = true;
-
-    //phaser's random number generator
     var numreindeer = 2
     var deer;
     console.log("reindeer in play ===",numreindeer)
@@ -165,7 +172,7 @@ breakAsteroid: function(bullet, asteroid) {
       deer.animations.play('fly');
       deer.body.velocity.x = this.game.rnd.integerInRange(-100, 100);
       deer.body.velocity.y = this.game.rnd.integerInRange(-100, 100);}
-
+      deer.scale.setTo(2.5);
       deer.body.immovable = true;
       deer.body.collideWorldBounds = true;
       deer.body.bounce.setTo(0.9, 0.9);

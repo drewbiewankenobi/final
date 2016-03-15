@@ -6,14 +6,11 @@ var SantaGame = SantaGame || {};
 SantaGame.MainMenu = function(){};
 
 SantaGame.MainMenu.prototype = {
-  init: function(score, myScore) {
-    console.log("Passed in === ", myScore)
+  init: function(score) {
     myScore = myScore
     var score = score || 0;
     this.highestScore = this.highestScore || 0;
-    // console.log(score)
     this.highestScore = Math.max(score, this.highestScore);
-    console.log("Game === ",this.highestScore)
    },
   create: function() {
   	//show the space tile, repeated
@@ -36,7 +33,7 @@ SantaGame.MainMenu.prototype = {
     var a = this.game.add.text(this.game.width/2, this.game.height/2 + 35, text, style);
     a.anchor.set(0.5);
 
-    var text = "Steer Santa by clicking his move.";
+    var text = "Steer Santa by clicking his path.";
     var style = { font: "20px 'Press Start 2P'", fill: "Red", align: "center" };
     var b = this.game.add.text(this.game.width/2, this.game.height/2 + 65, text, style);
     b.anchor.set(0.5);
@@ -59,16 +56,16 @@ SantaGame.MainMenu.prototype = {
     }
   }
 };
-console.log("Outside Angular === ",myScore)
+// console.log("Outside Angular === ",myScore)
 angular.module('gameApp', [])
 
   angular.module('gameApp')
     .controller('scoreTroller', ['$scope', '$http', function($scope, $http){
       $scope.score = myScore
-      $scope.hi = "hi there"
-      console.log("Greeting === ",$scope.hi)
+      // $scope.hi = "hi there"
+      // console.log("Greeting === ",$scope.hi)
 
-      console.log("Angular === ",myScore)
+      // console.log("Angular === ",myScore)
       $scope.scoreSend = function(myScore,user){
       $http.post('api/score', score)
         .then(function(returnData){

@@ -53,7 +53,7 @@ SantaGame.Game.prototype = {
     stater = this.game.state
       gameChange = function(){
         music.stop()
-        stater.start('Gamefour', myScore)
+        stater.start('Gamefour', true, false, myScore)
     }
     spaceBar.onDown.add(gameChange)
   },
@@ -172,8 +172,7 @@ SantaGame.Game.prototype = {
   },
   gameOver: function() {    
     //pass it the score as a parameter 
-    var myScore = this.playerScore
-    this.game.state.start('MainMenu', true, false, this.playerScore, myScore);
+    this.game.state.start('MainMenu', true, false, this.playerScore);
     this.presentCount = 0
   },
   collect: function(player, collectable) {

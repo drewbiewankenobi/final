@@ -37,10 +37,11 @@ SantaGame.Preload.prototype = {
     this.load.audio('collect', '/assets/audio/collect.ogg');
     this.load.audio('chomp', '/assets/audio/chomp.wav');
     this.load.audio('explosion', '/assets/audio/explosion.ogg');
-    this.load.audio('bg', ['/assets/audio/Gradius.mp3'])
-    this.load.audio('bg2', ['/assets/audio/aqua.mp3'])
-    this.load.audio('bg3', ['/assets/audio/gradiusthree.mp3'])
-    this.load.audio('bg4', ['/assets/audio/FFboss.mp3'])
+    this.load.audio('pew', '/assets/audio/pew.wav');
+    this.load.audio('bg', ['/assets/audio/Gradius.mp3']);
+    this.load.audio('bg2', ['/assets/audio/aqua.mp3']);
+    this.load.audio('bg3', ['/assets/audio/gradiusthree.mp3']);
+    this.load.audio('bg4', ['/assets/audio/FFboss.mp3']);
     var music;
     var bullets;
     var nextFire

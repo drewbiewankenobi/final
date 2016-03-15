@@ -41,9 +41,9 @@ a {
     color:black;
 }
 
-/*a:hover {
-    opacity: 1.2
-}*/
+a:hover {
+    text-decoration: none;
+}
 
 .game-head {
     color: white;

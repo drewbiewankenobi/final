@@ -55,10 +55,10 @@
 <div class="container">
   <div class="row">
     <div ng-repeat = "games in gameBox" class="col-xs-12">
-      <h3 class="game-head">{{games.name}}</h3>
+      <a href="/HTML/index.html"><h3 class="game-head">{{games.name}}</h3>
         <p class="backer">Created by: {{games.creator}}</p>
         <img class = "sizer" ng-src="{{games.img}}">
-        <p class="backer">{{games.description}}</p>
+        <p class="backer">{{games.description}}</p></a>
   </div>
 </div>
 
