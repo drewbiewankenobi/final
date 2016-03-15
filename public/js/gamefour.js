@@ -4,14 +4,13 @@ SantaGame.Gamefour = function(){};
 SantaGame.Gamefour.prototype = {
   init: function(score) {
     var myScore = score || 0
-    console.log("Score === ",score)
+    // console.log("Score === ",score)
     this.playerScore = this.playerScore || 0
     this.playerScore = myScore
   },
   create: function() {
       
-    // for (key in Phaser.Keyboard){
-    //   console.log(key)}
+  
     spaceBar = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR)
     this.x = this.game.time.now
     // this.initKeyboard();
@@ -37,6 +36,7 @@ SantaGame.Gamefour.prototype = {
       bullets.createMultiple(50, 'bullet');
       bullets.setAll('checkWorldBounds', true);
       bullets.setAll('outOfBoundsKill', true);
+
   var fire = function() {
       this.pewSound = gamez.add.audio('pew')
 
@@ -51,14 +51,10 @@ SantaGame.Gamefour.prototype = {
         bullet.reset(playa.x - 8, playa.y - 8);
 
         gamez.physics.arcade.moveToPointer(bullet, 300);
-        // console.log(bullets)
-        // this.bullets = bullet
-        // console.log(this.bullets)
+    
     myBullets = bullet
     this.pewSound.play();
-    console.log("in=== ",myBullets)
       }
-     console.log("out ===",bullets)
     spaceBar.onDown.add(fire)
 
     //enable player physics
@@ -98,13 +94,11 @@ SantaGame.Gamefour.prototype = {
     
   },
   update: function() {
-    // console.log(bullets)
     if(this.game.input.activePointer.justPressed()) {
       
       //move on the direction of the input
       this.game.physics.arcade.moveToPointer(this.player, this.playerSpeed);
     }
-
     //collision between player and asteroids
     this.game.physics.arcade.collide(this.player, this.asteroids, this.hitAsteroid, null, this);
     this.game.physics.arcade.collide(this.player, this.reindeer, this.hitAsteroid, null, this);
@@ -126,8 +120,7 @@ SantaGame.Gamefour.prototype = {
   //       }
   //   },
 breakAsteroid: function(bullet, asteroid) {
-    //play collect sound
-    // console.log("hit")
+
     this.explosionSound.play();
     //update score
     this.playerScore++;
@@ -142,7 +135,7 @@ breakAsteroid: function(bullet, asteroid) {
  
   },
 breakDeer: function(bullet, reindeer){
-  // console.log("hit")
+  
     this.explosionSound.play();
     //update score
     
@@ -150,6 +143,16 @@ breakDeer: function(bullet, reindeer){
     reindeer.scale.y -=.2
     reindeer.scale.x -=.2
     bullet.kill();
+    reindeer.HP -= 1
+    var pointX = reindeer.x
+    var pointY = reindeer.y
+    console.log(reindeer.HP)
+    if (reindeer.HP <= 0){
+      var splode = this.game.add.sprite(pointX, pointY, 'asplode')
+      splode.animations.add('fly', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24], 25, false);
+      splode.animations.play('fly');
+      reindeer.kill()
+    }
   
 },
   generateReindeer: function() {
@@ -159,7 +162,7 @@ breakDeer: function(bullet, reindeer){
     this.reindeer.enableBody = true;
     var numreindeer = 2
     var deer;
-    console.log("reindeer in play ===",numreindeer)
+    
 
     for (var i = 0; i < numreindeer; i++) {
       //add sprite
@@ -171,11 +174,14 @@ breakDeer: function(bullet, reindeer){
       deer.animations.add('fly', [0, 1, 2, 3, 4, 5, 6], 15, true);
       deer.animations.play('fly');
       deer.body.velocity.x = this.game.rnd.integerInRange(-100, 100);
-      deer.body.velocity.y = this.game.rnd.integerInRange(-100, 100);}
+      deer.body.velocity.y = this.game.rnd.integerInRange(-100, 100);
       deer.scale.setTo(2.5);
       deer.body.immovable = true;
       deer.body.collideWorldBounds = true;
       deer.body.bounce.setTo(0.9, 0.9);
+      deer.HP = 11
+    }
+
   },
   generateAsteriods: function() {
     this.asteroids = this.game.add.group();
@@ -186,7 +192,7 @@ breakDeer: function(bullet, reindeer){
     //phaser's random number generator
     var numAsteroids = this.game.rnd.integerInRange(50, 100)
     var asteriod;
-    console.log("Asteroids in play ===",numAsteroids)
+    
 
     for (var i = 0; i < numAsteroids; i++) {
       //add sprite
@@ -213,10 +219,10 @@ breakDeer: function(bullet, reindeer){
   },
    hitAsteroid: function(player, asteroid) {
     //play explosion sound
-    console.log(this.x)
+  
     if(this.game.time.now > this.x + 5000){
     this.explosionSound.play();
-    // console.log("Player coords ===",this.player.x, this.player.y)
+  
     //make the player explode
     var emitter = this.game.add.emitter(this.player.x, this.player.y, 100);
     emitter.makeParticles('playerParticle');

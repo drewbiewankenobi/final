@@ -28,6 +28,7 @@ SantaGame.Preload.prototype = {
     this.load.spritesheet('playership', '/assets/images/santadance.png',16,16);
     this.load.spritesheet('gosanta', '/assets/images/gosanta.png',165,173);
     this.load.spritesheet('reindeer', '/assets/images/evil.png',127.5714285714,208);
+    this.load.spritesheet('asplode', '/assets/images/asplode.png',192,195);
     this.load.image('power', '/assets/images/present.png');
     this.load.image('playerParticle', '/assets/images/player-particle.png');
     this.load.image('bullet', '/assets/images/ball.gif');
