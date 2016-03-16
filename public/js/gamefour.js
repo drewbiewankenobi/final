@@ -185,6 +185,8 @@ breakAsteroid: function(bullet, asteroid) {
     var pointY = reindeer.y
     console.log("HPs === ",reindeer.HP)
     if (reindeer.HP <= 0){
+      this.playerScore +=10
+      this.scoreLabel.text = this.playerScore;
       this.killCount +=1
       var splode = this.game.add.sprite(pointX, pointY, 'asplode')
       splode.animations.add('fly', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24], 25, false);
