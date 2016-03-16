@@ -48,8 +48,8 @@ angular.module('app')
                 url    : '/signup',
                 data   : $scope.signupForm
             }).then(function(returnData){
-                console.log(returnData)
-                if ( returnData.data.success ) { window.location.href="/registered" }
+                $scope.useName = returnData.data.username
+                if ( returnData.data.success ) {window.location.href="/registered" }
             })
         }
 
@@ -58,7 +58,10 @@ angular.module('app')
                 s.peoples = dataFromServer.data;
                        })
                     
-
+        h.get('/api/thisUser')
+            .then(function(dataFromServer){
+                s.useName = dataFromServer.username;
+                       })
 
         s.login = function(){
             h({
@@ -66,7 +69,7 @@ angular.module('app')
                 url    : '/login',
                 data   : $scope.loginForm
             }).then(function(returnData){
-                if ( returnData.data.success ) { window.location.href="/registered" } 
+                if ( returnData.data.success ) {window.location.href="/registered" } 
                 else { console.log(returnData)}
             })
         }

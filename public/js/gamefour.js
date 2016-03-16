@@ -73,7 +73,7 @@ SantaGame.Gamefour.prototype = {
 
     //show score
     this.showLabels();
-
+    this.killCount = 0
 
     //sounds
     this.explosionSound = this.game.add.audio('explosion');
@@ -126,6 +126,15 @@ breakAsteroid: function(bullet, asteroid) {
     this.playerScore++;
     this.scoreLabel.text = this.playerScore;
     bullet.kill();
+    var astyX = asteroid.x
+    var astyY = asteroid.y
+    var emitter = this.game.add.emitter(astyX, astyY, 20);
+    emitter.makeParticles('blast');
+    emitter.minParticleSpeed.setTo(-200, -200);
+    emitter.maxParticleSpeed.setTo(200, 200);
+    emitter.gravity = 0;
+    emitter.start(true, 1000, null, 100);
+    emitter.smoothed = false
     asteroid.kill();
     // if (this.presentCount === this.getCount){
     //   music.stop()
@@ -134,27 +143,6 @@ breakAsteroid: function(bullet, asteroid) {
 
  
   },
-breakDeer: function(bullet, reindeer){
-  
-    this.explosionSound.play();
-    //update score
-    
-  
-    reindeer.scale.y -=.2
-    reindeer.scale.x -=.2
-    bullet.kill();
-    reindeer.HP -= 1
-    var pointX = reindeer.x
-    var pointY = reindeer.y
-    console.log(reindeer.HP)
-    if (reindeer.HP <= 0){
-      var splode = this.game.add.sprite(pointX, pointY, 'asplode')
-      splode.animations.add('fly', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24], 25, false);
-      splode.animations.play('fly');
-      reindeer.kill()
-    }
-  
-},
   generateReindeer: function() {
     this.reindeer = this.game.add.group();
     
@@ -162,7 +150,7 @@ breakDeer: function(bullet, reindeer){
     this.reindeer.enableBody = true;
     var numreindeer = 2
     var deer;
-    
+    this.numreindeer = numreindeer
 
     for (var i = 0; i < numreindeer; i++) {
       //add sprite
@@ -183,6 +171,33 @@ breakDeer: function(bullet, reindeer){
     }
 
   },
+  breakDeer: function(bullet, reindeer){
+    console.log("kill count === ",this.killCount)
+    this.explosionSound.play();
+    console.log("numba deers",this.numreindeer)
+    reindeer.scale.y -=.2
+    reindeer.scale.x -=.2
+    bullet.kill();
+    reindeer.HP -= 1
+    reindeer.body.velocity.x +=35
+    reindeer.body.velocity.y +=35
+    var pointX = reindeer.x
+    var pointY = reindeer.y
+    console.log("HPs === ",reindeer.HP)
+    if (reindeer.HP <= 0){
+      this.killCount +=1
+      var splode = this.game.add.sprite(pointX, pointY, 'asplode')
+      splode.animations.add('fly', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24], 25, false);
+      splode.animations.play('fly');
+      reindeer.kill()
+    }
+    if (this.killCount === this.numreindeer){
+      music.stop()
+      this.presentCount=0
+    this.game.state.start('theEnd', true, false, this.playerScore)
+    }
+  
+},
   generateAsteriods: function() {
     this.asteroids = this.game.add.group();
     

@@ -21,6 +21,9 @@ SantaGame.Preload.prototype = {
     this.load.image('mospace', '/assets/images/tile2.jpg');
     this.load.image('tile3', '/assets/images/tile3.jpg');
     this.load.image('tile4', '/assets/images/tile4.jpg');
+    this.load.image('tile5', '/assets/images/city.png');
+    this.load.image('pic', '/assets/images/redBlock.png');
+    this.load.image('blast', '/assets/images/blasty.png')
 
     //sprites
     this.load.image('candy', '/assets/images/candy.png');
@@ -43,6 +46,7 @@ SantaGame.Preload.prototype = {
     this.load.audio('bg2', ['/assets/audio/aqua.mp3']);
     this.load.audio('bg3', ['/assets/audio/gradiusthree.mp3']);
     this.load.audio('bg4', ['/assets/audio/FFboss.mp3']);
+    this.load.audio('bg5', ['/assets/audio/winters.mp3']);
     var music;
     var bullets;
     var nextFire

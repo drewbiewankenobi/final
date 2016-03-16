@@ -9,5 +9,6 @@ SantaGame.game.state.add('Game', SantaGame.Game);
 SantaGame.game.state.add('Gametwo', SantaGame.Gametwo);
 SantaGame.game.state.add('Gamethree', SantaGame.Gamethree);
 SantaGame.game.state.add('Gamefour', SantaGame.Gamefour);
+SantaGame.game.state.add('theEnd', SantaGame.theEnd);
 
 SantaGame.game.state.start('Boot');

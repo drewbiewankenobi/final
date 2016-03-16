@@ -7,7 +7,6 @@ SantaGame.MainMenu = function(){};
 
 SantaGame.MainMenu.prototype = {
   init: function(score) {
-    myScore = myScore
     var score = score || 0;
     this.highestScore = this.highestScore || 0;
     this.highestScore = Math.max(score, this.highestScore);
@@ -52,7 +51,7 @@ SantaGame.MainMenu.prototype = {
   },
   update: function() {
     if(this.game.input.activePointer.justPressed()) {
-      this.game.state.start('Game');
+      this.game.state.start('Game',  true, false, this.playerScore);
     }
   }
 };

@@ -164,6 +164,10 @@ app.get('/api/people', function(req, res){
     })
 })
 
+// app.get('/api/thisUser', function(req, res){
+//     User.findOne({},
+// })
+
 app.get('/logout', function(req, res){
     req.logOut()
     res.redirect('/')
